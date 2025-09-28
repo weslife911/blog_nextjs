@@ -4,6 +4,8 @@ import { CreateUser, LoginUser } from "@/types/user";
 import { SignupReturnType } from "@/types/SignupReturnTpye";
 import { toast } from "sonner"
 import { LoginReturnType } from "@/types/LoginReturnType";
+import { useBlogStore } from "@/store/useBlogStore";
+import { Blog, BlogReturnType } from "@/types/blog";
 
 export const useSignUpUserMutation = () => {
 
@@ -81,3 +83,25 @@ export const useLogoutMutation = () => {
         }
     });
 };
+
+
+export const useCreateBlogMutation = () => {
+    const queryClient = useQueryClient();
+    const { createBlog } = useBlogStore();
+
+    return useMutation({
+        mutationFn: (data: Blog) => createBlog(data),
+        onSuccess: async(data: BlogReturnType) => {
+            if(data.success) {
+                toast.success(data.message);
+            } else {
+                toast.error(data.message);
+            }
+        },
+        onSettled: async() => {
+            await queryClient.invalidateQueries({
+                queryKey: ["blogs"]
+            })
+        }
+    });
+}

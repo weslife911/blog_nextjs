@@ -37,7 +37,7 @@ const userSchema = new Schema({
     profile_pic: {
         type: String
     }
-});
+}, { timestamps: true });
 
 const User = models.User || model("User", userSchema);
 

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import SignupForm from "@/components/Auth/SignupForm";
+import SignupForm from "@/forms/SignupForm";
 
 export const metadata: Metadata = {
   title: "Sign Up Page | Free Next.js Template for Startup and SaaS",

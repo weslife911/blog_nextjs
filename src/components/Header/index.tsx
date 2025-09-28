@@ -170,9 +170,9 @@ const Header = () => {
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
                 {/* Use authToken here */}
-                {authToken ? (
+                {authToken && authUser ? (
                   <>
-                    {/* <div className="flex items-center space-x-4" aria-label={`Welcome, ${authUser.full_name || 'User'}`}>
+                    <div className="flex items-center space-x-4" aria-label={`Welcome, ${authUser.full_name || 'User'}`}>
                         <div className="relative h-10 w-10 overflow-hidden rounded-full">
                           <Image
                             src={authUser.profile_pic}
@@ -184,7 +184,7 @@ const Header = () => {
                       <span className="text-base font-medium text-dark dark:text-white">
                         Hello, {authUser.full_name || "User"}!
                       </span>
-                    </div> */}
+                    </div>
                     <button
                       onClick={() => logout.mutate()}
                       className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-primary px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9 ml-4"

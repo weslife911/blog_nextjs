@@ -32,6 +32,9 @@ module.exports = {
       // => @media (min-width: 1400px) { ... }
     },
     extend: {
+        animation: {
+            'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+        },
       colors: {
         current: "currentColor",
         transparent: "transparent",

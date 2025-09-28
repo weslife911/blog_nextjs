@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { connectToDb } from '@/lib/connectToDb'; // Adjust path as needed
-import User from '@/models/User'; // Adjust path as needed
+import { connectToDb } from '@/lib/connectToDb';
+import User from '@/models/User';
 import jwt from "jsonwebtoken"
 
 export async function GET(request: NextRequest) {
@@ -25,14 +25,30 @@ export async function GET(request: NextRequest) {
             message: "JWT_SECRET_KEY variable not set in .env or .env.local file"
         });
 
+        // The jwt.verify function will throw an error if the token is invalid/expired.
         const decoded: any = jwt.verify(token, JWT_SECRET_KEY);
 
-        if(!decoded) return NextResponse.json({
+        if(!decoded) {
+             // This check is redundant since verify throws, but kept for clarity
+            return NextResponse.json({
                 success: false,
                 message: "Error while decoding token"
             }, { status: 400 });
+        }
 
-        const user = await User.findById(decoded.id);
+        // ⬅️ CRITICAL FIX: The token payload is likely { user: { _id: '...' } }.
+        // We must extract the ID from the nested object. Using _id (Mongoose default)
+        const userId = decoded.user?._id || decoded.user?.id || decoded.id; // Fallback to id/decoded.id for robustness
+
+        if (!userId) {
+            return NextResponse.json({
+                success: false,
+                message: "User ID not found in token payload"
+            }, { status: 400 });
+        }
+
+        // ⬅️ UPDATED: Use the correctly extracted userId
+        const user = await User.findById(userId).select("-password");
 
         if (!user) {
             return NextResponse.json({
@@ -43,12 +59,21 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json({
             success: true,
-            user
+            user // Returns the user object
         });
 
     } catch (e: unknown) {
-        console.error('Verification error:', e);
+        console.error('Verification/Fetch error:', e);
 
+        // Explicitly handle JWT errors (like expiration) by returning null data
+        if (e instanceof jwt.JsonWebTokenError || e instanceof jwt.TokenExpiredError) {
+             return NextResponse.json({
+                success: false,
+                message: `Authentication failed: ${e.message}`
+            }, { status: 401 });
+        }
+
+        // Existing error handling
         if (e instanceof Error) {
             return NextResponse.json({
                 success: false,

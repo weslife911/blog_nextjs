@@ -5,7 +5,6 @@ export const validateSignupSchema = z.object({
     .string()
     .min(5, "Full name must be at least 5 characters"),
   email: z
-    .string() // Changed to string first for email validation
     .email("Invalid email address"),
   password: z
     .string()
@@ -18,9 +17,16 @@ export const validateSignupSchema = z.object({
 
 export const validateLoginSchema = z.object({
   email: z
-    .string() // Changed to string first for email validation
     .email("Invalid email address"),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters long"),
+});
+
+export const validateBlogSchema = z.object({
+    blogTitle: z.string(),
+    blogContent: z.string(),
+    blogImage: z.string().optional(),
+    blogAuthorID: z.string(),
+    blogTags: z.array(z.string()).optional()
 });

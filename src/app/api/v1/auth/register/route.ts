@@ -1,8 +1,8 @@
 import User from "@/models/User";
 import { NextResponse } from "next/server"
 import { genSalt, hash } from "bcryptjs"
-import connectToDb from "@/lib/connectToDb";
-import genToken from "@/lib/genToken";
+import { connectToDb } from "@/lib/connectToDb";
+import { genToken } from "@/lib/genToken";
 import { validateSignupSchema } from "@/lib/validate"
 
 export async function POST(request: Request) {
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
             message: "Error while creating user!"
         });
 
-        const token = genToken(newUser._id);
+        const token = genToken(newUser);
 
         await newUser.save();
 
@@ -55,12 +55,7 @@ export async function POST(request: Request) {
             success: true,
             message: "User created successfully",
             token,
-            newUser: {
-                _id: newUser._id,
-                full_name: newUser.full_name,
-                email: newUser.email,
-                profile_pic: newUser.profile_pic
-            }
+            newUser
         });
 
     } catch (e: unknown) {

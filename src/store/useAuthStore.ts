@@ -1,11 +1,11 @@
 import { axiosInstance } from "@/lib/axios";
 import { LoginReturnType } from "@/types/LoginReturnType";
 import { SignupReturnType } from "@/types/SignupReturnTpye";
-import type { CreateUser, LoginUser } from "@/types/user";
+import type { AuthenticatedUser, CreateUser, LoginUser } from "@/types/user";
 import { create } from "zustand";
 
 interface AuthStore {
-  authUser: any | null;
+  authUser: AuthenticatedUser | null;
   checkAuth: () => void;
   login: (data: LoginUser) => Promise<LoginReturnType>;
   signup: (data: CreateUser) => Promise<SignupReturnType>;
@@ -39,6 +39,5 @@ export const useAuthStore = create<AuthStore>((set) => ({
   logout: () => {
     localStorage.removeItem("startup_auth_token");
     set({ authUser: null });
-  },
-  setAuthUser: (user) => set({ authUser: user }),
+  }
 }));

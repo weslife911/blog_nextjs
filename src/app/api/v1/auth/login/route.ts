@@ -34,7 +34,7 @@ export async function POST(request: Request) {
             });
         }
 
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email });
 
         if(!user) return NextResponse.json({
             success: false,
@@ -48,18 +48,13 @@ export async function POST(request: Request) {
             message: "Passwords do not match"
         });
 
-        const token = genToken(user._id);
+        const token = genToken(user);
 
         return NextResponse.json({
             success: true,
             message: "Logged in successfully",
             token,
-            user: {
-                _id: user._id,
-                full_name: user.full_name,
-                email: user.email,
-                profile_pic: user.profile_pic
-            }
+            user
         });
 
     } catch (e: unknown) {

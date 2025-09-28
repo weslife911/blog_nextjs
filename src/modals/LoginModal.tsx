@@ -1,4 +1,4 @@
-import LoginForm from "@/components/Auth/LoginForm";
+import LoginModalForm from "@/forms/LoginModalForm";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -29,7 +29,7 @@ export default function LoginModal({ children }: {
                         You must be authenticated to continue
                     </DialogDescription>
                 </DialogHeader>
-                <LoginForm/>
+                <LoginModalForm/>
             </DialogContent>
         </Dialog>
     );

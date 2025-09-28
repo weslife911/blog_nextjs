@@ -10,6 +10,33 @@
   }
 }
 
+@layer base {
+    /* Default (Light) theme variables */
+    :root {
+        --color-bg-light: #ffffff; /* White background for light theme */
+        --color-text-light: #000000; /* Black text for light theme */
+    }
+
+    /* Dark theme variables, applied when 'dark' class is present on HTML or body */
+    .dark {
+        --color-bg-dark: #1f2937; /* Dark gray background */
+        --color-text-dark: #ffffff; /* White text */
+    }
+
+    /* MDEditor specific class to use the defined variables */
+    /* This targets the main container of the editor */
+    .w-md-editor {
+        background-color: var(--color-bg-light);
+        color: var(--color-text-light);
+    }
+
+    /* Apply dark colors when the parent is in dark mode */
+    .dark .w-md-editor {
+        background-color: var(--color-bg-dark);
+        color: var(--color-text-dark);
+    }
+}
+
 @layer components {
   input[type="checkbox"]:checked ~ label span svg {
     @apply inline-flex;
