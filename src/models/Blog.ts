@@ -18,6 +18,10 @@ const BlogSchema = new Schema({
         ref: "User",
         required: true
     },
+    blogCategory: {
+        type: String,
+        required: true
+    },
     blogTags: {
         type: [String],
         default: []

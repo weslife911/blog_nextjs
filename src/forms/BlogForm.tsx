@@ -41,11 +41,13 @@ export default function BlogForm() {
         initialValues: {
             blogTitle: "",
             blogContent: "",
+            blogCategory: "",
             blogTags: ""
         },
         validationSchema: Yup.object({
             blogTitle: Yup.string().required("Blog Title is required"),
             blogContent: Yup.string().required("Blog Content is required"),
+            blogCategory: Yup.string().required("Blog Category is required"),
             blogTags: Yup.string().optional()
         }),
         onSubmit: async(values) => {
@@ -59,6 +61,7 @@ export default function BlogForm() {
             const formData = new FormData();
             formData.append('blogTitle', values.blogTitle);
             formData.append('blogContent', values.blogContent);
+            formData.append('blogCategory', values.blogCategory);
             formData.append('blogAuthorID', authUser?._id || '');
             // Append the file using the key 'file' to match route.ts
             formData.append('file', selectedFile);
@@ -85,7 +88,8 @@ export default function BlogForm() {
             await createBlogMutation.mutate({
                 blogTitle: values.blogTitle,
                 blogContent: values.blogContent,
-                blogImage: null, // Send null since there's no file
+                blogImage: null,
+                blogCategory: values.blogCategory,
                 blogAuthorID: authUser?._id,
                 blogTags: blogTagsArray
             }, {
@@ -190,6 +194,26 @@ export default function BlogForm() {
                         Uploading image...
                     </p>
                 )}
+            </div>
+
+            <div className="pt-4">
+                <div>
+                    <Label
+                        htmlFor="blogTags"
+                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                    >
+                        Blog Category
+                    </Label>
+                    <Input
+                        type="text"
+                        id="blog-category"
+                        name="blogCategory"
+                        value={formik.values.blogCategory}
+                        onChange={formik.handleChange}
+                        placeholder="e.g., Technology, Medicine, Agriculture"
+                        className="w-full text-xl sm:text-2xl font-medium rounded-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-800 py-3 px-4 text-black dark:text-white outline-none focus:border-primary focus:shadow-md transition duration-300"
+                    />
+                </div>
             </div>
 
             {/* Tags Input */}

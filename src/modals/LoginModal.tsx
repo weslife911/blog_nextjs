@@ -16,7 +16,7 @@ export default function LoginModal({ children }: {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">
+                <Button variant="outline" className="mt-7">
                     {children}
                 </Button>
             </DialogTrigger>

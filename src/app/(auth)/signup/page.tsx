@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "This is Sign Up Page for Startup Nextjs Template",
 };
 
-const SignupPage = () => {
+const SignupPage = async() => {
 
   return (
     <>

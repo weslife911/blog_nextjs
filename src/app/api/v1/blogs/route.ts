@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
     const blogTitle = data.get('blogTitle') as string;
     const blogContent = data.get('blogContent') as string;
     const blogAuthorID = data.get('blogAuthorID') as string;
+    const blogCategory = data.get('blogCategory') as string;
     const blogTagsString = data.get('blogTags') as string;
 
     // Convert comma-separated tags to array
@@ -67,6 +68,7 @@ export async function POST(request: NextRequest) {
       blogContent,
       blogImage: blogImageUrl,
       blogAuthorID,
+      blogCategory,
       blogTags
     };
 
@@ -85,6 +87,7 @@ export async function POST(request: NextRequest) {
       blogContent: validation.data.blogContent,
       blogImage: validation.data.blogImage,
       blogAuthorID: validation.data.blogAuthorID,
+      blogCategory: validation.data.blogCategory,
       blogTags: validation.data.blogTags
     });
 
@@ -123,8 +126,8 @@ export async function GET(request: NextRequest) {
         const limit = url.searchParams.get("limit");
 
         const options = {
-            page: parseInt(page) || 1,
-            limit: parseInt(limit) || 3,
+            page: parseInt(page as string) || 1,
+            limit: parseInt(limit as string) || 3,
             sort: { createdAt: -1 },
             populate: {
                 path: 'blogAuthorID',
@@ -141,7 +144,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json({
             success: true,
-            blogs: result.docs
+            blogs: result
         });
 
     } catch (error) {

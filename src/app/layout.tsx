@@ -5,6 +5,8 @@ import "../styles/index.css";
 import { Toaster } from "@/components/ui/sonner"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import LoadingWrapper from "@/wrapper/LoadingWrapper";
+import { SessionProvider } from "next-auth/react"
+import AuthProvider from '@/providers/AuthProvider'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,9 +30,11 @@ export default function RootLayout({
       <head />
       <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className}`}>
         <QueryClientProvider client={queryClient}>
-            <LoadingWrapper>
-                {children}
-            </LoadingWrapper>
+            <AuthProvider>
+                <LoadingWrapper>
+                    {children}
+                </LoadingWrapper>
+            </AuthProvider>
         </QueryClientProvider>
         <Toaster />
     </body>

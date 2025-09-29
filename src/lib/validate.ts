@@ -28,5 +28,12 @@ export const validateBlogSchema = z.object({
     blogContent: z.string(),
     blogImage: z.string().optional(),
     blogAuthorID: z.string(),
+    blogCategory: z.string(),
     blogTags: z.array(z.string()).optional()
+});
+
+export const validateCommentSchema = z.object({
+    user: z.string(),
+    blog: z.string(),
+    comment: z.string()
 });

@@ -1,3 +1,5 @@
+// src/store/useBlogStore.ts
+
 import { axiosInstance } from "@/lib/axios";
 import { Blog, BlogReturnType, BlogStore } from "@/types/blog"
 import { create } from "zustand"
@@ -14,7 +16,6 @@ export const useBlogStore = create<BlogStore>((set) => ({
     },
     getBlogs: async(page?: string) => {
         const response = (await axiosInstance.get<BlogReturnType>(page ? `/blogs?page=${page}` : "/blogs")).data;
-        set({ blogs: response.success ? response.blogs : [] });
         return response;
     },
     getBlog: async(id: string) => {

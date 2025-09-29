@@ -2,12 +2,13 @@ import { formatMongoDate } from "@/lib/formatDate";
 import { Blog } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
+import MDEditor from "@uiw/react-md-editor";
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
   return (
     <>
       <div
-        className="wow fadeInUp hover:shadow-two dark:hover:shadow-gray-dark group relative overflow-hidden rounded-sm bg-white shadow-one duration-300 dark:bg-dark"
+        className="wow fadeInUp hover:shadow-two dark:hover:shadow-gray-dark group relative overflow-hidden rounded-sm bg-white shadow-one duration-300 dark:bg-dark mb-7"
         data-wow-delay=".1s"
       >
         <Link
@@ -15,7 +16,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           className="relative block aspect-[37/22] w-full"
         >
           <span className="absolute right-6 top-6 z-20 inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold capitalize text-white">
-            {blog.blogTags}
+            {blog.blogCategory}
           </span>
           <Image src={blog.blogImage} alt="image" fill />
         </Link>
@@ -28,9 +29,12 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
               {blog.blogTitle}
             </Link>
           </h3>
-          <p className="mb-6 border-b border-body-color border-opacity-10 pb-6 text-base font-medium text-body-color dark:border-white dark:border-opacity-10">
-            {blog.blogContent}
-          </p>
+          <div className="mb-6 border-b border-body-color border-opacity-10 pb-6 text-base font-medium text-body-color dark:border-white dark:border-opacity-10">
+            <MDEditor.Markdown
+                source={blog.blogContent}
+            />
+
+          </div>
           <div className="flex items-center">
             <div className="mr-5 flex items-center border-r border-body-color border-opacity-10 pr-5 dark:border-white dark:border-opacity-10 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
               <div className="mr-4">

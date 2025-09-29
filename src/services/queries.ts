@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useAuthStore } from "@/store/useAuthStore"
 import { useBlogStore } from "@/store/useBlogStore";
+import { useCommentStore } from "@/store/useCommentStore";
 
 export const useGetAuthUser = () => {
 
@@ -33,3 +34,13 @@ export const useGetBlog = (id: string) => {
         enabled: !!id,
     });
 }
+
+export const useGetComments = (blogId: string, page: number) => {
+    const { getComments } = useCommentStore();
+
+    return useQuery({
+        queryKey: ["comments", blogId, page],
+        queryFn: () => getComments(blogId, page),
+        enabled: !!blogId,
+    });
+};

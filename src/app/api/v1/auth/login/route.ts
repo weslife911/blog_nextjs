@@ -41,12 +41,20 @@ export async function POST(request: Request) {
             message: "User with the given email does not exist"
         });
 
-        const verifyPassword = await compare(password, user.password);
+        let userPassword;
 
-        if(!verifyPassword) return NextResponse.json({
-            success: false,
-            message: "Passwords do not match"
-        });
+        if(user.authType === "social") {
+            userPassword = user.email;
+        } else {
+            userPassword = password;
+        }
+
+        const verifyPassword = await compare(userPassword, user.password);
+
+            if(!verifyPassword) return NextResponse.json({
+                success: false,
+                message: "Passwords do not match"
+            });
 
         const token = genToken(user);
 
