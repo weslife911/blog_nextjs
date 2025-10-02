@@ -7,13 +7,17 @@ import { create } from "zustand"
 export const useBlogStore = create<BlogStore>((set) => ({
     blogs: null,
     blog: null,
-    createBlog: async(data: Blog) => {
-        return (await axiosInstance.post<BlogReturnType>("/blogs", data, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
+    createBlog: async(data: Blog | FormData) => { // Accept FormData
+            if (data instanceof FormData) {
+                return (await axiosInstance.post<BlogReturnType>("/blogs", data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })).data;
+            } else {
+                return (await axiosInstance.post<BlogReturnType>("/blogs", data)).data;
             }
-        })).data;
-    },
+        },
     getBlogs: async(page?: string) => {
         const response = (await axiosInstance.get<BlogReturnType>(page ? `/blogs?page=${page}` : "/blogs")).data;
         return response;

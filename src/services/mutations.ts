@@ -89,9 +89,9 @@ export const useLogoutMutation = () => {
 export const useCreateBlogMutation = () => {
     const queryClient = useQueryClient();
     const { createBlog } = useBlogStore();
-
     return useMutation({
-        mutationFn: (data: Blog) => createBlog(data),
+        // Change the type here to accept FormData
+        mutationFn: (data: FormData | Blog) => createBlog(data), // Blog type for non-file uploads
         onSuccess: async(data: BlogReturnType) => {
             if(data.success) {
                 toast.success(data.message);

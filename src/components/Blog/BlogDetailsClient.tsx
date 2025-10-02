@@ -8,7 +8,6 @@ import { formatMongoDate } from "@/lib/formatDate";
 import MDEditor from "@uiw/react-md-editor";
 import BlogLoader from "@/loader/BlogLoader";
 import CommentSection from "../Comment/CommentSection";
-import { useState } from "react";
 import { PaginatedComments } from "@/types/blog";
 
 

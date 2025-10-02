@@ -5,7 +5,6 @@ import Comment from "./Comment";
 import { useGetComments } from "@/services/queries";
 import { Suspense, useState } from "react"; // ADDED: useState
 import { BlogSkeletonCard } from "../Skeletons/BlogSkeletonCard";
-import { useAuthStore } from "@/store/useAuthStore";
 import { PaginatedComments } from "@/types/blog"; // ADDED: PaginatedComments type
 
 const CommentSection = ({ blogId }: {

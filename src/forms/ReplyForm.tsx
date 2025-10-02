@@ -3,9 +3,7 @@
 import ReplyButton from "@/components/Comment/ReplyButton";
 import MDEditor from "@uiw/react-md-editor";
 
-const ReplyForm = ({ blogId }: {
-    blogId: string
-}) => {
+const ReplyForm = () => {
 
     return (
         <form className="mt-4">

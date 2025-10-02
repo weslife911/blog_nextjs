@@ -3,6 +3,14 @@ import { connectToDb } from '@/lib/connectToDb';
 import User from '@/models/User';
 import jwt from "jsonwebtoken"
 
+interface DecodedToken {
+    user: {
+        _id: string;
+        id?: string; // Add id as optional for robustness
+    };
+    // Add other properties if your token contains them
+}
+
 export async function GET(request: NextRequest) {
     await connectToDb();
 
@@ -26,7 +34,7 @@ export async function GET(request: NextRequest) {
         });
 
         // The jwt.verify function will throw an error if the token is invalid/expired.
-        const decoded: any = jwt.verify(token, JWT_SECRET_KEY);
+        const decoded = jwt.verify(token, JWT_SECRET_KEY) as DecodedToken;
 
         if(!decoded) {
              // This check is redundant since verify throws, but kept for clarity

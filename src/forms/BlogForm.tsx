@@ -70,7 +70,7 @@ export default function BlogForm() {
 
             // 3. Instead of the original mutation payload, mutate with the FormData object
             // The type signature of useCreateBlogMutation.mutate will need to be flexible enough
-            await createBlogMutation.mutate(formData as any, { // Use formData as the payload
+            await createBlogMutation.mutate(formData, { // Use formData as the payload
                 onSuccess: (data: BlogReturnType) => {
                     setIsUploadingImage(false);
                     if(data.success) {

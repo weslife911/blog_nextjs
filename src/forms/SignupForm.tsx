@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+// import { useSession } from "next-auth/react";
+// import { useEffect, useState } from "react";
 import SocialButtons from "@/components/Auth/SocialButtons";
 
 export default function SignupForm() {
@@ -18,16 +18,16 @@ export default function SignupForm() {
     const router = useRouter();
 
     // Use the useSession hook
-    const { data: session, status } = useSession();
+    // const { data: session, status } = useSession();
 
-    const [authToken, setAuthToken] = useState<string | null>(null);
+    // const [authToken, setAuthToken] = useState<string | null>(null);
 
-    useEffect(() => {
-        const tokenFromStorage = localStorage.getItem("startup_auth_token");
-        setAuthToken(tokenFromStorage);
-    }, []);
+    // useEffect(() => {
+    //     const tokenFromStorage = localStorage.getItem("startup_auth_token");
+    //     setAuthToken(tokenFromStorage);
+    // }, []);
 
-    if((status === "authenticated") || authToken) router.push("/");
+    // if((status === "authenticated") || authToken) router.push("/");
 
     const formik = useFormik({
         initialValues: {

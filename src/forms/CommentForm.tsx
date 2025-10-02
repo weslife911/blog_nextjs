@@ -1,7 +1,7 @@
 "use client"
 
 import CommentButton from "@/components/Comment/CommentButton";
-import MDEditor, { comment } from "@uiw/react-md-editor";
+import MDEditor from "@uiw/react-md-editor";
 import { useCreateCommentMutation } from "@/services/mutations";
 import { useFormik } from "formik"
 import * as Yup from "yup"
