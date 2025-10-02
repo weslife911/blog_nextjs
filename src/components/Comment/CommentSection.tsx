@@ -20,7 +20,6 @@ const CommentSection = ({ blogId }: {
     // Helper to get paginated data safely
     const paginatedData: PaginatedComments | undefined = commentsQuery.data?.comments;
     const comments = paginatedData?.docs || [];
-    const totalCount = paginatedData?.totalDocs || 0;
     const totalPages = paginatedData?.totalPages || 1;
 
     // Pagination handler
@@ -34,7 +33,7 @@ const CommentSection = ({ blogId }: {
         <div className="mt-10 pt-10 border-t border-body-color border-opacity-10 dark:border-white dark:border-opacity-10">
             {/* Comment Count Header */}
             <h3 className="text-2xl font-bold text-black dark:text-white sm:text-3xl mb-8">
-                {commentsQuery.isLoading ? 'Loading...' : `${totalCount} Total Comments`}
+                {commentsQuery.isLoading ? 'Loading...' : `${comments.filter((comment) => comment.blog._id === blogId).length} Total Comment(s)`}
             </h3>
 
             {/* Main Comment Form */}
@@ -51,7 +50,7 @@ const CommentSection = ({ blogId }: {
                 {commentsQuery.isLoading ? (
                     <BlogSkeletonCard />
                 ) : comments.length > 0 ? (
-                    comments.map((comment) => (
+                    comments.filter((comment) => comment.blog._id === blogId).map((comment) => (
                         <Suspense key={comment._id} fallback={<BlogSkeletonCard/>}>
                             <Comment blogId={blogId} comment={comment} />
                         </Suspense>
@@ -62,7 +61,7 @@ const CommentSection = ({ blogId }: {
             </div>
 
             {/* ADDED: Pagination Controls */}
-            {totalPages > 1 && (
+            {comments.filter((comment) => comment.blog._id === blogId).length > 1 && (
                 <div className="flex items-center justify-center space-x-2 pt-6">
                     <button
                         onClick={() => handlePageChange(currentPage - 1)}

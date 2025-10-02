@@ -14,14 +14,14 @@ const menuData: Menu[] = [
     newTab: false,
   },
   {
-    id: 33,
+    id: 3,
     title: "Blog",
     path: "/blogs",
     newTab: false,
   },
   {
-    id: 3,
-    title: "Support",
+    id: 4,
+    title: "Contact",
     path: "/contact",
     newTab: false,
   }

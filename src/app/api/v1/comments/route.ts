@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
 
         if(!comments.docs || comments.docs.length === 0) return NextResponse.json({
             success: false,
-            message: "No blogs available at the moment!"
+            message: "No comments available on this page!"
         }, { status: 200 });
 
         return NextResponse.json({

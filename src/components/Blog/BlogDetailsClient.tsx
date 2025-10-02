@@ -3,17 +3,24 @@
 import SharePost from "@/components/Blog/SharePost";
 import TagButton from "@/components/Blog/TagButton";
 import Image from "next/image";
-import { useGetBlog } from "@/services/queries";
+import { useGetBlog, useGetComments } from "@/services/queries";
 import { formatMongoDate } from "@/lib/formatDate";
 import MDEditor from "@uiw/react-md-editor";
 import BlogLoader from "@/loader/BlogLoader";
 import CommentSection from "../Comment/CommentSection";
+import { useState } from "react";
+import { PaginatedComments } from "@/types/blog";
 
 
 // Define the component that accepts the blogId as a prop
 const BlogDetailsClient = ({ blogId }: { blogId: string }) => {
 
     const blog = useGetBlog(blogId);
+
+    const commentsQuery = useGetComments(blogId, 1);
+
+    const paginatedData: PaginatedComments | undefined = commentsQuery.data?.comments;
+    const comments = paginatedData?.docs || [];
 
     if (!blog.data?.blog) {
         return <BlogLoader/>;
@@ -82,7 +89,7 @@ const BlogDetailsClient = ({ blogId }: { blogId: string }) => {
                             <path d="M11.0529 6.55322H4.69668C4.41543 6.55322 4.19043 6.77822 4.19043 7.05947C4.19043 7.34072 4.41543 7.56572 4.69668 7.56572H11.0811C11.3623 7.56572 11.5873 7.34072 11.5873 7.05947C11.5873 6.77822 11.3342 6.55322 11.0529 6.55322Z" />
                           </svg>
                         </span>
-                        50
+                        {comments.filter((comment) => comment.blog._id === blogId).length}
                       </p>
                       <p className="flex items-center text-base font-medium text-body-color">
                         <span className="mr-3">

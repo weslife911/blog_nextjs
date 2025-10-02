@@ -35,7 +35,7 @@ export const useGetBlog = (id: string) => {
     });
 }
 
-export const useGetComments = (blogId: string, page: number) => {
+export const useGetComments = (blogId: string, page?: number) => {
     const { getComments } = useCommentStore();
 
     return useQuery({

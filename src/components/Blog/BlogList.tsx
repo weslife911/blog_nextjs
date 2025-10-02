@@ -21,7 +21,7 @@ export default function BlogList() {
     // Safely extract paginated data and blogs array
     const paginatedData: PaginatedBlogs | undefined = blogsQuery.data?.blogs as PaginatedBlogs | undefined;
     const blogs: Blog[] = paginatedData?.docs || [];
-    const totalPages = paginatedData?.totalPages || 1;
+    const totalPages = paginatedData?.totalDocs || 1;
 
     // Generate array of page numbers to display
     const pageNumbers = useMemo(() => {
@@ -32,7 +32,6 @@ export default function BlogList() {
     const handlePageChange = (page: number) => {
         if (page > 0 && page <= totalPages) {
             setCurrentPage(page);
-            // Optional: Scroll to the top of the blog list when changing page
             window.scrollTo({ top: 300, behavior: 'smooth' });
         }
     };
@@ -62,7 +61,6 @@ export default function BlogList() {
                     </div>
                 ))
             ) : blogs.length > 0 ? (
-                // Display blog posts
                 blogs.map((blog) => (
                     <div
                         key={blog._id}
