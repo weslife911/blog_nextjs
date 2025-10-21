@@ -37,3 +37,9 @@ export const validateCommentSchema = z.object({
     blog: z.string(),
     comment: z.string()
 });
+
+export const validateContactSchema = z.object({
+  full_name: z.string("Full name us required"),
+  email: z.email("Invalid email address"),
+  message: z.string("Message is required")
+});

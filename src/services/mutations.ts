@@ -7,6 +7,8 @@ import { LoginReturnType } from "@/types/LoginReturnType";
 import { useBlogStore } from "@/store/useBlogStore";
 import { Blog, BlogReturnType, Comment, CommentReturnType } from "@/types/blog";
 import { useCommentStore } from "@/store/useCommentStore";
+import { useEmailStore } from "@/store/useEmailStore";
+import { sendEmailReturnType, sendEmailType } from "@/types/email";
 
 export const useSignUpUserMutation = () => {
 
@@ -123,6 +125,27 @@ export const useCreateCommentMutation = () => {
         onSettled: async() => {
             await queryClient.invalidateQueries({
                 queryKey: ["comments"]
+            })
+        }
+    });
+}
+
+export const UseSendEmailMutation = () => {
+    const queryClient = useQueryClient();
+    const { sendEmail } = useEmailStore();
+
+    return useMutation({
+        mutationFn: (data: sendEmailType) => sendEmail(data),
+        onSuccess: (data: sendEmailReturnType) => {
+            if(data.success) {
+                toast.success(data.message);
+            } else {
+                toast.error(data.message);
+            }
+        },
+        onSettled: async() => {
+            await queryClient.invalidateQueries({
+                queryKey: ["sendEmail"]
             })
         }
     });

@@ -99,7 +99,6 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Error:', error);
 
     if (error instanceof Error) {
       return NextResponse.json({
