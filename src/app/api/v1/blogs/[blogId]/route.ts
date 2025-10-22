@@ -8,7 +8,10 @@ interface Context {
     };
 }
 
-export async function GET(request: NextRequest, context: Context) {
+export async function GET(
+  request: NextRequest,
+  context: Context
+): Promise<NextResponse<{ success: boolean; message: string; }> | NextResponse<{ success: boolean; blog: any; }>> {
 
     await connectToDb();
 
