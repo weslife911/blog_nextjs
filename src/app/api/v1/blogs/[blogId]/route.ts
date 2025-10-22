@@ -11,7 +11,7 @@ interface Context {
 export async function GET(
   request: NextRequest,
   context: Context
-): Promise<NextResponse<{ success: boolean; message: string; }> | NextResponse<{ success: boolean; blog: any; }>> {
+): Promise<NextResponse<{ success: boolean; message: string; }> | NextResponse<{ success: boolean; message: string; }>> {
 
     await connectToDb();
 
@@ -40,7 +40,7 @@ export async function GET(
 
         return NextResponse.json({
             success: true,
-            blog
+            message: "Blog created successfully!"
         });
 
     } catch (e: unknown) {
