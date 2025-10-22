@@ -1,8 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Blog from "@/models/Blog";
 import { connectToDb } from "@/lib/connectToDb";
 
 export async function GET(
+    request: NextRequest,
   { params }: { params: { blogId: string } }
 ) {
   await connectToDb();
