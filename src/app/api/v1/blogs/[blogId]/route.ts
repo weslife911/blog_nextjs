@@ -33,6 +33,7 @@ export async function GET(
     return NextResponse.json({
       success: true,
       message: "Blog fetched successfully!",
+      blog
     });
   } catch (e: unknown) {
     if (e instanceof Error) {
