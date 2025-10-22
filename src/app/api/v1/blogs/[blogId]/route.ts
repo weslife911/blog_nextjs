@@ -4,12 +4,12 @@ import { connectToDb } from "@/lib/connectToDb";
 
 export async function GET(
     request: NextRequest,
-  { params }: { params: { blogId: string } }
+    context: { params: { blogId: string } }
 ) {
   await connectToDb();
 
   try {
-    const { blogId } = params;
+    const { blogId } = context.params;
 
     if (!blogId) {
       return NextResponse.json(
