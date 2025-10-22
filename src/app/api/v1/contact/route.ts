@@ -19,10 +19,10 @@ export async function POST(request: NextRequest) {
         const mailOptions = {
             from: email,
             to: process.env.EMAIL_HOST_USER,
-            subject: `New message from ${full_name} | ${email}`,
+            subject: `New message from ${full_name}`,
             text: message,
             html: `
-                <p><strong>From:</strong> (${full_name})</p>
+                <p><strong>From:</strong> (${full_name} | ${email})</p>
                 <p><strong>Message:</strong></p>
                 <p>${message}</p>
             `
